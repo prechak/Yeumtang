@@ -1,10 +1,14 @@
 import express from "express";
 import connectionPool from "./utils/db.mjs";
+import borrowRouter from "./routes/borrow.mjs";
 
 const app = express();
 const port = process.env.PORT || 8080;
 
-//Connection test
+app.use(express.json());
+app.use("/api/borrow", borrowRouter);
+
+// Connection test
 async function connect() {
   try {
     await connectionPool.connect();
@@ -16,16 +20,19 @@ async function connect() {
 }
 connect();
 
-app.get("/users", async (req, res) => {
-  let result;
+// Health check database connection
+app.get("/health", async (req, res) => {
   try {
-    result = await connectionPool.query(`select * from users`);
-    res.status(200).json(result.rows);
+    await connectionPool.query("select 1");
+    res.status(200).json({ message: "Database connection is healthy" });
   } catch (error) {
-    res.status(500).json({ message: `Internal Server Error` });
+    res.status(500).json({
+      message: "Internal Server Error: Unable to connect to database",
+    });
   }
 });
 
+// Test endpoint to check if the server is running
 app.get("/test", (req, res) => {
   res.json("Server API is working 🚀");
 });
