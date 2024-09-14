@@ -1,12 +1,14 @@
 import express from "express";
 import connectionPool from "./utils/db.mjs";
 import borrowRouter from "./routes/borrow.mjs";
+import repayRouter from "./routes/repay.mjs";
 
 const app = express();
 const port = process.env.PORT || 8080;
 
 app.use(express.json());
 app.use("/api/borrow", borrowRouter);
+app.use("/api/repay", repayRouter);
 
 // Connection test
 async function connect() {
