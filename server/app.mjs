@@ -26,9 +26,9 @@ connect();
 app.get("/health", async (req, res) => {
   try {
     await connectionPool.query("select 1");
-    res.status(200).json({ message: "Database connection is healthy" });
+    return res.status(200).json({ message: "Database connection is healthy" });
   } catch (error) {
-    res.status(500).json({
+    return res.status(500).json({
       message: "Internal Server Error: Unable to connect to database",
     });
   }
@@ -36,7 +36,7 @@ app.get("/health", async (req, res) => {
 
 // Test endpoint to check if the server is running
 app.get("/test", (req, res) => {
-  res.json("Server API is working 🚀");
+  return res.json("Server API is working 🚀");
 });
 
 app.listen(port, () => {
