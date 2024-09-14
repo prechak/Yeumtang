@@ -20,8 +20,13 @@ const validateBorrowRequest = (req, res, next) => {
     typeof borrowerId !== "number"
   ) {
     return res.status(400).json({
-      message:
-        "Bad Request: Invalid or missing borrowerId. borrowerId must be a number.",
+      message: "Bad Request: lenderId and borrowerId must be different.",
+    });
+  }
+
+  if (lenderId === borrowerId) {
+    return res.status(400).json({
+      message: "Bad Request: borrowerId and lenderId must not a same number",
     });
   }
 
