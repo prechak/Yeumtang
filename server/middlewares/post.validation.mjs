@@ -1,4 +1,4 @@
-const validateBorrowRequest = (req, res, next) => {
+const validatePostRequest = (req, res, next) => {
   const { lenderId, borrowerId, amount } = req.body;
 
   if (
@@ -45,4 +45,4 @@ const validateBorrowRequest = (req, res, next) => {
   next();
 };
 
-export default validateBorrowRequest;
+export default validatePostRequest;
