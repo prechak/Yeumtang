@@ -35,11 +35,12 @@ const validatePostRequest = (req, res, next) => {
     amount === undefined ||
     amount === null ||
     isNaN(amount) ||
-    typeof amount !== "number"
+    typeof amount !== "number" ||
+    amount <= 0
   ) {
     return res.status(400).json({
       message:
-        "Bad Request: Invalid or missing amount. Amount must be a number.",
+        "Bad Request: Invalid or missing amount. Amount must be a positive number.",
     });
   }
 

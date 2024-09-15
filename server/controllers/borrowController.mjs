@@ -36,6 +36,10 @@ export const borrowMoney = async (req, res) => {
     return res.status(201).json(transactionResult.rows[0]);
   } catch (error) {
     await connectionPool.query("ROLLBACK");
+    logger.error("Transaction Error", {
+      error: error.message,
+      stack: error.stack,
+    });
     return res.status(500).json({ message: `Internal Server Error` });
   }
 };

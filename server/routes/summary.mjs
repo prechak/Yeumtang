@@ -1,2 +1,9 @@
 import { Router } from "express";
-import connectionPool from "../utils/db.mjs";
+import validateUserId from "../middlewares/validateUserId.mjs";
+import { moneySummary } from "../controllers/summaryController.mjs";
+
+const summaryRouter = Router();
+
+summaryRouter.get("/", [validateUserId], moneySummary);
+
+export default summaryRouter;
