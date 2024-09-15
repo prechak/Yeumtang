@@ -3,6 +3,7 @@ import connectionPool from "./utils/db.mjs";
 import borrowRouter from "./routes/borrow.mjs";
 import repayRouter from "./routes/repay.mjs";
 import summaryRouter from "./routes/summary.mjs";
+import transactionRouter from "./routes/transactions.mjs";
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -11,6 +12,7 @@ app.use(express.json());
 app.use("/api/borrow", borrowRouter);
 app.use("/api/repay", repayRouter);
 app.use("/api/summary", summaryRouter);
+app.use("/api/transactions", transactionRouter);
 
 // Connection test
 async function connect() {

@@ -1,6 +1,6 @@
 import connectionPool from "../utils/db.mjs";
 
-export const moneySummary = async (req, res) => {
+export const getDebtSummary = async (req, res) => {
   const { userId } = req.query;
 
   const summaryQuery = `
