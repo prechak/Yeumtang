@@ -10,10 +10,31 @@ export const getTransactions = async (req, res) => {
   const queryParams = [];
 
   if (userId) {
-    transactionQuery = `
-      SELECT * FROM transactions
-      WHERE borrower_id = $1 OR lender_id = $1
-      ORDER BY timestamp DESC`;
+    transactionQuery = `SELECT 
+    t.transaction_id,
+    u.user_id,
+    u.name AS user_name,
+    CASE
+        WHEN t.lender_id = u.user_id THEN 'lender'
+        WHEN t.borrower_id = u.user_id THEN 'borrower'
+        ELSE 'none'
+    END AS user_role,
+    l.name AS lender_name,
+    b.name AS borrower_name,
+    t.amount,
+    t.timestamp AS timestampz,
+    t.transaction_type_id,
+    tt.name AS transaction_type_name,
+    t.lender_id,
+    t.borrower_id AS borrow_id
+FROM transactions t
+JOIN users l ON t.lender_id = l.user_id
+JOIN users b ON t.borrower_id = b.user_id
+JOIN users u ON u.user_id = $1
+JOIN transaction_types tt ON t.transaction_type_id = tt.transaction_type_id
+WHERE t.lender_id = $1 OR t.borrower_id = $1
+ORDER BY t.timestamp DESC;
+`;
     queryParams.push(userId);
   }
 
