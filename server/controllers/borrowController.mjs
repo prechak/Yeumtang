@@ -2,15 +2,40 @@ import connectionPool from "../utils/db.mjs";
 
 export const borrowMoney = async (req, res) => {
   const { lenderId, borrowerId, amount } = req.body;
-  const query = `
-  insert into transactions (lender_id, borrower_id, amount, transaction_type_id, timestamp) 
-  values ($1, $2, $3, $4, now()) 
-  returning *`;
-  const values = [lenderId, borrowerId, amount, 1];
+
+  const transactionQuery = `
+      INSERT INTO transactions (lender_id, borrower_id, amount, transaction_type_id, timestamp)
+      VALUES ($1, $2, $3, $4, now())
+      RETURNING *`;
+
+  const updateLenderQuery = `
+      UPDATE users
+      SET balance = balance - $1
+      WHERE user_id = $2`;
+
+  const updateBorrowerQuery = `
+      UPDATE users
+      SET balance = balance + $1
+      WHERE user_id = $2`;
+
+  const transactionValues = [lenderId, borrowerId, amount, 1];
   try {
-    const result = await connectionPool.query(query, values);
-    return res.status(201).json(result.rows[0]);
+    await connectionPool.query("BEGIN");
+
+    const transactionResult = await connectionPool.query(
+      transactionQuery,
+      transactionValues
+    );
+
+    await connectionPool.query(updateLenderQuery, [amount, lenderId]);
+
+    await connectionPool.query(updateBorrowerQuery, [amount, borrowerId]);
+
+    await connectionPool.query("COMMIT");
+
+    return res.status(201).json(transactionResult.rows[0]);
   } catch (error) {
+    await connectionPool.query("ROLLBACK");
     return res.status(500).json({ message: `Internal Server Error` });
   }
 };
