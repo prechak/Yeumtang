@@ -4,23 +4,23 @@ import axios from "axios";
 const useTransactions = (userId) => {
   const [transactions, setTransactions] = useState([]);
 
-  useEffect(() => {
-    const fetchTransactions = async () => {
-      try {
-        const endpoint = userId
-          ? `/api/transactions?userId=${userId}`
-          : "/api/transactions";
-        const response = await axios.get(`http://localhost:8080${endpoint}`);
-        setTransactions(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  const fetchTransactions = async () => {
+    try {
+      const endpoint = userId
+        ? `/api/transactions?userId=${userId}`
+        : "/api/transactions";
+      const response = await axios.get(`http://localhost:8080${endpoint}`);
+      setTransactions(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
+  useEffect(() => {
     fetchTransactions();
   }, [userId]);
 
-  return transactions;
+  return { transactions, fetchTransactions };
 };
 
 export default useTransactions;
