@@ -1,8 +1,44 @@
-# React + Vite
+# ยืมตัง Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Application นี้เป็น Frontend Service สำหรับการยืมเงินรหว่างสองบุคคล
 
-Currently, two official plugins are available:
+![Yeumtang-Screenshot](./public/Yeumtang-Screenshot.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ตารางหัวข้อ
+
+- [การติดตั้ง](#การติดตั้ง)
+- [การใช้งาน](#การใช้งาน)
+- [Dependencies](#dependencies)
+
+## การติดตั้ง
+
+1. **ทำการโคลน Repository:**
+
+   ```bash
+   git clone git@github.com:prechak/Yeumtang.git
+   cd Yeumtang/client
+   ```
+
+2. **ติดตั้ง Dependencies:**
+   ```bash
+   npm install axios react react-dom react-loading-skeleton
+   ```
+
+## การใช้งาน
+
+### ก่อนเริ่มใช้งานควรเปิด Backend Service ก่อนเพื่อดึงข้อมูลจากฐานข้อมูล
+
+1. **การเริ่มต้นใช้งาน**
+
+   ```bash
+   npm run start
+   ```
+
+เปิด Browser ขึ้นมาแล้วไปที่ http://localhost:5173 เพื่อเข้าใช้งาน Application
+
+## Dependencies
+
+- `axios`
+- `react`
+- `react-dom`
+- `react-loading-skeleton`
