@@ -6,8 +6,15 @@ import "../index.css";
 
 const TransactionTable = ({ transactions, selectedUser, formatDate }) => {
   const [loading, setLoading] = useState(true);
+  const [hasData, setHasData] = useState(false);
 
   useEffect(() => {
+    if (transactions.length > 0) {
+      setHasData(true);
+    } else {
+      setHasData(false);
+    }
+
     const timer = setTimeout(() => {
       setLoading(false);
     }, 1500);
@@ -15,7 +22,7 @@ const TransactionTable = ({ transactions, selectedUser, formatDate }) => {
     return () => clearTimeout(timer);
   }, [transactions]);
 
-  const isLoading = loading || !Array.isArray(transactions);
+  const isLoading = loading || !hasData;
 
   return (
     <div>
