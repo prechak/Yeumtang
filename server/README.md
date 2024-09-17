@@ -210,3 +210,5 @@ PRIMARY KEY (transaction_type_id)
 - `express`
 - `nodemon`
 - `pg`
+- `swagger-autogen`
+- `swagger-ui-express`
