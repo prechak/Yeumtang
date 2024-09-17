@@ -32,7 +32,7 @@ https://github.com/prechak/Yeumtang/tree/main/server
 1. **การเริ่มต้นใช้งาน**
 
    ```bash
-   npm run start
+   npm run dev
    ```
 
 เปิด Browser ขึ้นมาแล้วไปที่ http://localhost:5173 เพื่อเข้าใช้งาน Application
