@@ -1,10 +1,10 @@
 import React from "react";
-import Transactions from "./pages/Transactions";
+import TransactionPage from "./pages/TransactionsPage";
 
 function App() {
   return (
     <div className="App">
-      <Transactions />
+      <TransactionPage />
     </div>
   );
 }

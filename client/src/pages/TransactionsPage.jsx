@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
+import Header from "../components/Header";
 import Modal from "../components/Modal";
 import ActionModal from "../components/ActionModal";
 import useTransactions from "../hooks/useTransactions";
 import useSummary from "../hooks/useSummary";
+import formatDate from "../utils/dateFormat";
 
 export default function TransactionPage() {
   const [selectedUser, setSelectedUser] = useState("A");
@@ -58,52 +60,14 @@ export default function TransactionPage() {
     }
   };
 
-  function formatDate(dateString) {
-    const date = new Date(dateString);
-    const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const year = String(date.getFullYear()).slice(-2);
-    return `${day}/${month}/${year}`;
-  }
-
   return (
     <div className="container w-[100vw] mx-auto p-6">
       {/* Header */}
-      <div className="flex justify-between items-center border-b pb-4 mb-6">
-        <h1 className="text-2xl font-semibold">รายการยืม/คืนเงิน</h1>
-        <div className="flex gap-1">
-          <button
-            onClick={() => setSelectedUser("A")}
-            className={`px-4 py-2 rounded ${
-              selectedUser === "A" ? "bg-green-700" : "bg-green-500"
-            } text-white`}
-          >
-            นาย A
-          </button>
-          <button
-            onClick={() => setSelectedUser("B")}
-            className={`px-4 py-2 rounded ${
-              selectedUser === "B" ? "bg-green-700" : "bg-green-500"
-            } text-white`}
-          >
-            นาย B
-          </button>
-          <button
-            onClick={() => setSelectedUser("both")}
-            className={`px-4 py-2 rounded ${
-              selectedUser === "both" ? "bg-green-700" : "bg-green-500"
-            } text-white`}
-          >
-            นาย A และ นาย B
-          </button>
-          <button
-            onClick={() => setIsActionModalOpen(true)}
-            className="bg-blue-500 text-white px-4 py-2 rounded"
-          >
-            เพิ่มรายการใหม่
-          </button>
-        </div>
-      </div>
+      <Header
+        selectedUser={selectedUser}
+        setSelectedUser={setSelectedUser}
+        setIsActionModalOpen={setIsActionModalOpen}
+      />
       {/* Summary Section */}
       <div className="mb-6">
         <h2 className="text-xl font-semibold mb-2">สรุปการติดหนี้</h2>
