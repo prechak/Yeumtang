@@ -3,7 +3,7 @@ import Transactions from "./pages/Transactions";
 
 function App() {
   return (
-    <div>
+    <div className="App">
       <Transactions />
     </div>
   );
