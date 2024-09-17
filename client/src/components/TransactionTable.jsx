@@ -1,7 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import Skeleton from "react-loading-skeleton"; // Import Skeleton
+import "react-loading-skeleton/dist/skeleton.css"; // Optional CSS for better skeleton appearance
 
 const TransactionTable = ({ transactions, selectedUser, formatDate }) => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Set a minimum delay of 2 seconds for loading skeleton
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
+    // Clear timer if component unmounts before 2 seconds
+    return () => clearTimeout(timer);
+  }, [transactions]);
+
+  // Determine if data is being loaded
+  const isLoading = loading || !Array.isArray(transactions);
+
   return (
     <div>
       <h2 className="text-xl font-semibold mb-2">รายการยืม/คืนเงิน</h2>
@@ -12,7 +29,32 @@ const TransactionTable = ({ transactions, selectedUser, formatDate }) => {
           <div className="flex-1 px-6 py-3">รายการ</div>
           <div className="flex-1 px-6 py-3">จำนวน</div>
         </div>
-        {Array.isArray(transactions) &&
+        {isLoading ? (
+          <>
+            {/* Loading Text with Animation */}
+            <div className="text-center py-4">
+              <span className="loading-text">Loading...</span>
+            </div>
+
+            {/* Skeleton Rows */}
+            {Array.from({ length: 5 }).map((_, index) => (
+              <div key={index} className="flex border-b text-center">
+                <div className="flex-1 px-6 py-4">
+                  <Skeleton height={20} />
+                </div>
+                <div className="flex-1 px-6 py-4">
+                  <Skeleton height={20} />
+                </div>
+                <div className="flex-1 px-6 py-4">
+                  <Skeleton height={20} />
+                </div>
+                <div className="flex-1 px-6 py-4">
+                  <Skeleton height={20} />
+                </div>
+              </div>
+            ))}
+          </>
+        ) : (
           transactions.map((transaction, index) => (
             <div key={index} className="flex border-b text-center">
               <div className="flex-1 px-6 py-4 text-gray-800">
@@ -27,7 +69,7 @@ const TransactionTable = ({ transactions, selectedUser, formatDate }) => {
                 นาย {transaction.lender_name}
               </div>
               <div
-                className={`flex-1 px-6 py-4 text-center ${
+                className={`flex-1 px-6 py-4 ${
                   selectedUser === "both"
                     ? "text-black"
                     : (transaction.user_id === 1 &&
@@ -41,8 +83,31 @@ const TransactionTable = ({ transactions, selectedUser, formatDate }) => {
                 {transaction.amount} บาท
               </div>
             </div>
-          ))}
+          ))
+        )}
       </div>
+
+      {/* Styling for Loading Animation */}
+      <style jsx>{`
+        .loading-text {
+          font-size: 1.25rem;
+          color: #555;
+          font-weight: 500;
+          animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+          0% {
+            opacity: 1;
+          }
+          50% {
+            opacity: 0.5;
+          }
+          100% {
+            opacity: 1;
+          }
+        }
+      `}</style>
     </div>
   );
 };
