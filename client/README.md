@@ -27,7 +27,7 @@ Application นี้เป็น Frontend Service สำหรับการ�
 ## การใช้งาน
 
 ### ก่อนเริ่มใช้งานควรเปิด Backend Service ก่อนเพื่อดึงข้อมูลจากฐานข้อมูลที่:
-https://github.com/prechak/Yeumtang/tree/main/server
+[https://github.com/prechak/Yeumtang/tree/main/server](https://github.com/prechak/Yeumtang/blob/main/server/README.md)
 
 1. **การเริ่มต้นใช้งาน**
 
