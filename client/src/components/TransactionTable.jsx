@@ -2,21 +2,19 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Skeleton from "react-loading-skeleton"; // Import Skeleton
 import "react-loading-skeleton/dist/skeleton.css"; // Optional CSS for better skeleton appearance
+import "../index.css";
 
 const TransactionTable = ({ transactions, selectedUser, formatDate }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Set a minimum delay of 2 seconds for loading skeleton
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 2000);
+    }, 1500);
 
-    // Clear timer if component unmounts before 2 seconds
     return () => clearTimeout(timer);
   }, [transactions]);
 
-  // Determine if data is being loaded
   const isLoading = loading || !Array.isArray(transactions);
 
   return (
@@ -73,9 +71,18 @@ const TransactionTable = ({ transactions, selectedUser, formatDate }) => {
                   selectedUser === "both"
                     ? "text-black"
                     : (transaction.user_id === 1 &&
-                        transaction.transaction_type_name === "repay") ||
+                        transaction.user_role === "borrower" &&
+                        transaction.transaction_type_name === "borrow") ||
+                      (transaction.user_id === 1 &&
+                        transaction.user_role === "lender" &&
+                        transaction.transaction_type_name === "repay")
+                    ? "text-green-500"
+                    : (transaction.user_id === 2 &&
+                        transaction.user_role === "borrower" &&
+                        transaction.transaction_type_name === "borrow") ||
                       (transaction.user_id === 2 &&
-                        transaction.transaction_type_name !== "repay")
+                        transaction.user_role === "lender" &&
+                        transaction.transaction_type_name === "repay")
                     ? "text-green-500"
                     : "text-red-500"
                 }`}
@@ -86,28 +93,6 @@ const TransactionTable = ({ transactions, selectedUser, formatDate }) => {
           ))
         )}
       </div>
-
-      {/* Styling for Loading Animation */}
-      <style jsx>{`
-        .loading-text {
-          font-size: 1.25rem;
-          color: #555;
-          font-weight: 500;
-          animation: pulse 1.5s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-          0% {
-            opacity: 1;
-          }
-          50% {
-            opacity: 0.5;
-          }
-          100% {
-            opacity: 1;
-          }
-        }
-      `}</style>
     </div>
   );
 };

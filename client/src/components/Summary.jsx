@@ -5,16 +5,13 @@ const Summary = ({ selectedUser, summary }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Set a minimum delay of 2 seconds for loading skeleton
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 2000);
+    }, 1500);
 
-    // Clear timer if component unmounts before 2 seconds
     return () => clearTimeout(timer);
   }, [summary]);
 
-  // Determine if data is being loaded
   const isLoading = loading || !summary;
 
   return (
