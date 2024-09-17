@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import Skeleton from "react-loading-skeleton"; // Import Skeleton
-import "react-loading-skeleton/dist/skeleton.css"; // Optional CSS for better skeleton appearance
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import "../index.css";
 
 const TransactionTable = ({ transactions, selectedUser, formatDate }) => {

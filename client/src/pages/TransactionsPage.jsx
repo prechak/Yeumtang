@@ -8,7 +8,7 @@ import ActionModal from "../components/ActionModal";
 
 import useTransactions from "../hooks/useTransactions";
 import useSummary from "../hooks/useSummary";
-import useHandleTransaction from "../hooks/useHandleTransaction"; // Import the new hook
+import useHandleTransaction from "../hooks/useHandleTransaction"; 
 
 import formatDate from "../utils/dateFormat";
 

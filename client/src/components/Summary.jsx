@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Skeleton from "react-loading-skeleton"; // Import Skeleton
+import Skeleton from "react-loading-skeleton";
 
 const Summary = ({ selectedUser, summary }) => {
   const [loading, setLoading] = useState(true);
