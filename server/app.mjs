@@ -5,12 +5,23 @@ import borrowRouter from "./routes/borrow.mjs";
 import repayRouter from "./routes/repay.mjs";
 import summaryRouter from "./routes/summary.mjs";
 import transactionRouter from "./routes/transactions.mjs";
+import swaggerUi from "swagger-ui-express";
+import { loadSwaggerDocument } from "./utils/swagger.mjs";
 
 const app = express();
 const port = process.env.PORT || 8080;
 
 app.use(express.json());
 app.use(cors());
+
+async function setupSwagger() {
+  const swaggerDocument = await loadSwaggerDocument();
+  app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+}
+
+setupSwagger();
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(loadSwaggerDocument()));
 app.use("/api/borrow", borrowRouter);
 app.use("/api/repay", repayRouter);
 app.use("/api/summary", summaryRouter);

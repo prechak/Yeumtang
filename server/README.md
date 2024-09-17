@@ -23,7 +23,7 @@ Application นี้เป็น Backend Service สำหรับการย
 2. **ติดตั้ง Dependencies:**
 
    ```bash
-   npm install @supabase/supabase-js cors dotenv express nodemon pg
+   npm install @supabase/supabase-js cors dotenv express nodemon pg swagger-autogen swagger-ui-express
    ```
 
 3. **ตั้งค่า environment**
@@ -155,6 +155,10 @@ curl http://localhost:8080/health
   "borrow_id": 2
 }
 ```
+
+### Swwgger Documentation
+
+- **URL:** `/api-docs/`
 
 ## โครงสร้างฐานข้อมูล
 
