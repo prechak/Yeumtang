@@ -33,10 +33,9 @@ Application เป็น Full-Stack สำหรับการยืมเง�
 Frontend สามารถอ่านรายละเอียดได้ที่:
 [https://github.com/prechak/Yeumtang/tree/main/client](https://github.com/prechak/Yeumtang/blob/main/client/README.md)
 
-4. **ออกจาก client และเข้าไปที่ server:**
+4. **เปิด Terminal ใหม่ขึ้นมา และเข้าไปที่ server:**
 
    ```bash
-   cd ..
    cd Yeumtang/server
    ```
 
