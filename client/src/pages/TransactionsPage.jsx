@@ -8,7 +8,7 @@ import ActionModal from "../components/ActionModal";
 
 import useTransactions from "../hooks/useTransactions";
 import useSummary from "../hooks/useSummary";
-import useHandleTransaction from "../hooks/useHandleTransaction"; 
+import useHandleTransaction from "../hooks/useHandleTransaction";
 
 import formatDate from "../utils/dateFormat";
 
@@ -25,7 +25,8 @@ export default function TransactionPage() {
     selectedUser === "both" ? null : selectedUser === "A" ? 1 : 2
   );
 
-  const [summaryA, summaryB] = [useSummary(1), useSummary(2)];
+  const { summary: summaryA, fetchSummary: fetchSummaryA } = useSummary(1);
+  const { summary: summaryB, fetchSummary: fetchSummaryB } = useSummary(2);
 
   const summary =
     selectedUser === "both"
@@ -46,11 +47,22 @@ export default function TransactionPage() {
               : summaryB.total_repaid,
         };
 
+  const fetchSummary =
+    selectedUser === "A"
+      ? fetchSummaryA
+      : selectedUser === "B"
+      ? fetchSummaryB
+      : () => {
+          fetchSummaryA();
+          fetchSummaryB();
+        };
+
   const { handleAddTransaction } = useHandleTransaction({
     selectedUser,
     modalAction,
     setIsFormModalOpen,
     fetchTransactions,
+    fetchSummary,
   });
 
   return (
