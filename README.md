@@ -53,7 +53,7 @@ Frontend สามารถอ่านรายละเอียดได้�
    ```
 
 Backend สามารถอ่านรายละเอียดได้ที่:
-[https://github.com/prechak/Yeumtang/tree/main/client](https://github.com/prechak/Yeumtang/blob/main/server/README.md)
+[https://github.com/prechak/Yeumtang/tree/main/server](https://github.com/prechak/Yeumtang/blob/main/server/README.md)
 
 ##
 
